@@ -17,6 +17,10 @@ app.use(cors());
 app.use("/auth", authRoutes);
 app.use("/task", taskRoutes);
 
+app.get("/welcome", (req, res) => {
+  return res.json({greetings:`Hare Krishna`})
+})
+
 app.listen(PORT, () => {
   console.log(`server started to ${PORT}`);
 });
