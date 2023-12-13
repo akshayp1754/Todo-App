@@ -73,13 +73,13 @@ module.exports.updateTodo = async (req, res) => {
     const {
       user: { id },
     } = req;
-    
+
     // Extract title and description from the request body
     const { todo } = req.body;
-    
+
     // Get the todo ID from the request parameters
     const { todoId } = req.params;
-    
+
     // Find and update the todo
     const todomsg = await Todo.findOneAndUpdate(
       { _id: todoId },
@@ -107,10 +107,10 @@ module.exports.updateTodoStatus = async (req, res) => {
     const {
       user: { id },
     } = req;
-    
+
     // Get the todo ID from the request parameters
     const { todoId } = req.params;
-    
+
     // Find the todo by its ID
     const todo = await Todo.findById({ _id: todoId });
     if (!todo) {
@@ -120,13 +120,13 @@ module.exports.updateTodoStatus = async (req, res) => {
         data: null,
       });
     }
-    
+
     // Toggle the completion status
     todo.isCompleted = !todo.isCompleted;
     await todo.save();
-    
+
     return res.status(200).json({
-      message: "Todo updated successfully",
+      message: "Todo completed",
       success: true,
       data: todo,
     });
@@ -141,18 +141,18 @@ module.exports.updateTodoStatus = async (req, res) => {
 };
 
 // API endpoint to delete a todo
-module.exports.deleteTodo = async (req, res) => {
+module.exports. deleteTodo = async (req, res) => {
   try {
     const {
       user: { id },
     } = req;
-    
+
     // Get the todo ID from the request parameters
     const { todoId } = req.params;
-    
+
     // Find the todo by its ID
     const task = await Todo.findById({ _id: todoId });
-    
+
     // Check if the user is authorized to delete this task
     if (id !== task.user.toString()) {
       return res.status(401).json({
@@ -160,10 +160,10 @@ module.exports.deleteTodo = async (req, res) => {
         success: false,
       });
     }
-    
+
     // Delete the todo
     await Todo.findOneAndDelete({ _id: todoId });
-    
+
     return res.status(200).json({
       message: "Todo deleted successfully",
       success: true,

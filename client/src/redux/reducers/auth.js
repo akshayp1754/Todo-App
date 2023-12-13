@@ -8,10 +8,13 @@ const authReducer = (state = initialState, action) => {
 
   switch (type) {
     case "AUTH":
-      return { ...state, ...payload };
+      return {
+        ...state,
+        ...payload
+      };
     case "LOGOUT":
       localStorage.clear();
-      return { ...initialState};
+      return { ...initialState };
     default:
       return state;
   }
